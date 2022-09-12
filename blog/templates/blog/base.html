@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+
+    <!-- Medium style editor -->
+    <script src="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/js/medium-editor.min.js"></script>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/css/medium-editor.min.css" type="text/css" media="screen" charset="utf-8">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+
+    <!-- fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat|Russo+One" rel="stylesheet">
+</head>
+<body class="loader">
+    <nav class="navbar navbar-expand-lg bg-light">
+      <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link navbar-brand bigbrand" aria-current="page" href="{% url 'post_list' %}">My Blog</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'about' %}">About</a>
+            </li>
+              <li class="nav-item">
+              <a class="nav-link" href="https://github.com/MahmoudAbusaqer">GitHub</a>
+            </li>
+              <li class="nav-item">
+              <a class="nav-link" href="https://www.linkedin.com/in/mahmoud-abusaqer/">LinkedIn</a>
+            </li>
+
+          </ul>
+
+
+
+        </div>
+           <ul class="navbar-nav mb-lg-0 mb-2 d-flex">
+                {% if user.is_authenticated %}
+                <li>
+                    <a href="{% url 'post_new' %}">New Post </a>
+                </li>
+                <li>
+                    <a href="{% url 'post_draft_list' %}"> Drafts </a>
+                </li>
+                <li>
+                    <a href="{% url 'logout' %}"> Log Out </a>
+                </li>
+               <li>
+                    <a> Welcome: {{ user.username }}</a>
+                </li>
+                {% else %}
+                <li>
+                    <a href="{% url 'login' %}"> Login </a>
+                </li>
+                {% endif %}
+            </ul>
+      </div>
+    </nav>
+
+    <div class="content container">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="blog_posts">
+                    {% block content %}
+
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
